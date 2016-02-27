@@ -70,7 +70,7 @@ MhsAsset::register($this);
                          <?= Html::a('<i class="fa fa-fw fa-home"></i> Home', ['mahasiswa/index']) ?>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Data Diri</a>
+                        <?= Html::a('<i class="fa fa-fw fa-edit"></i> Data Diri', ['mahasiswa/input_data']) ?>
                     </li>
                     <li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Hasil Test</a>
