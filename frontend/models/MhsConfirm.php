@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\ProdiPeriode;
 /**
  * This is the model class for table "saatpmb_mhs_regconfirm".
  *
@@ -46,7 +46,7 @@ class MhsConfirm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mhs_gender', 'mhs_tempatlahir', 'mhs_tgllahir', 'mhs_alamat', 'mhs_kota', 'mhs_kodepos', 'mhs_telp', 'mhs_hp', 'mhs_warganegara', 'mhs_password', 'mhs_hash_confirm', 'mhs_gereja', 'mhs_tglkonfirmasi'], 'required'],
+            [['mhs_gender', 'mhs_tempatlahir', 'mhs_tgllahir', 'mhs_alamat', 'mhs_kota', 'mhs_kodepos', 'mhs_telp', 'mhs_hp', 'mhs_warganegara', 'mhs_gereja'], 'required'],
              [['mhs_imagefile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             [['proper_id', 'mhs_noreg'], 'integer'],
             [['mhs_tgllahir', 'mhs_tglkonfirmasi'], 'safe'],
@@ -112,4 +112,5 @@ class MhsConfirm extends \yii\db\ActiveRecord
     {
         return $this->hasOne(SaatpmbProdiperiode::className(), ['proper_id' => 'proper_id']);
     }
+
 }

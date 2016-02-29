@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
+use kartik\widgets\DepDrop;
+use frontend\models\ProdiPeriode;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\MhsConfirm */
@@ -13,14 +16,15 @@ use kartik\widgets\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
-        <div class="col-sm-4 col-offset-6 centered">
-            <?= Html::img('@web/../images/default_user.png');?>
-            <?= $form->field($model, 'mhs_imagefile')->fileInput() ?>
-        </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-6 col-offset-6 centered">
             <?= $form->field($model, 'mhs_noreg')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'mhs_nama')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->name, 'disabled' => 'true']) ?>
             <?= $form->field($model, 'mhs_email')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->email, 'disabled' => 'true'] ) ?>
+                 
+        </div>
+        <div class="col-sm-4 form-group">
+            <?= Html::img('@web/../images/default_user.png');?>
+            <?= $form->field($model, 'mhs_imagefile')->fileInput() ?>    
         </div>
     </div>
     <div class="row">
@@ -82,6 +86,11 @@ use kartik\widgets\DatePicker;
         </div>
          <div class="col-sm-4 col-offset-6 centered">
             <?= $form->field($model, 'mhs_goldarah')->radioList(['A' => 'A', 'B' => 'B','AB' => 'AB', 'O' => 'O']) ?>
+        </div>
+     </div>
+     <div class="row">
+        <div class="col-sm-4 col-offset-6 centered">
+            <?= $form->field($model, 'proper_id')->dropDownList(ArrayHelper::map(ProdiPeriode::getProdiPeriodeActive(), 'proper_id', 'prodi_name'),['prompt'=>'-Pilih Program Studi Yang Diinginkan-']); ?>
         </div>
      </div>
 

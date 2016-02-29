@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\MhsConfirm */
 
-$this->title = 'Input Data Mahasiswa';
+$this->title = 'Data Mahasiswa';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mhs-confirm-create">

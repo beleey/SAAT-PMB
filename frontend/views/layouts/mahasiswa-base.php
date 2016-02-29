@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -29,7 +30,7 @@ MhsAsset::register($this);
 <div id="wrapper">
         <!-- Navigation -->
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -64,6 +65,7 @@ MhsAsset::register($this);
                 </li>
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <!--
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
@@ -80,6 +82,35 @@ MhsAsset::register($this);
                     </li>
                 </ul>
             </div>
+            -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse" >
+                <div class="nav navbar-nav side-nav" style="background-color: #fff;">
+            <?= 
+                SideNav::widget([
+                    'type' => SideNav::TYPE_WARNING,
+                    'heading' => 'Menu Mahasiswa',
+                    'items' => [
+                        [
+                            'url' => ['mahasiswa/index'],
+                            'label' => 'Home',
+                            'icon' => 'home'
+                        ],
+                        [
+                            'url' => ['mahasiswa/input_data'],
+                            'label' => 'Data Diri',
+                            'icon' => 'edit'
+                        ],
+                        [
+                            'url' => ['mahasiswa/hasil_test'],
+                            'label' => 'Hasil Test',
+                            'icon' => 'file'
+                        ]
+                    ],
+                ]);
+           
+            ?>
+                </div>
+                </div>
             <!-- /.navbar-collapse -->
         </nav>
             

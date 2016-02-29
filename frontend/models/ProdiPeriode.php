@@ -56,6 +56,11 @@ class ProdiPeriode extends \yii\db\ActiveRecord
         ];
     }
 
+    public function attributes()
+    {
+        return array_merge(parent::attributes(), ['proper_id', 'periode_id', 'prodi_id', 'create_date','user_id', 'prodi_name']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -77,7 +82,7 @@ class ProdiPeriode extends \yii\db\ActiveRecord
      */
     public function getPeriode()
     {
-        return $this->hasOne(SaatpmbPeriode::className(), ['periode_id' => 'periode_id']);
+        return $this->hasOne(Periode::className(), ['periode_id' => 'periode_id']);
     }
 
     /**
@@ -85,7 +90,7 @@ class ProdiPeriode extends \yii\db\ActiveRecord
      */
     public function getProdi()
     {
-        return $this->hasOne(SaatpmbProdi::className(), ['prodi_id' => 'prodi_id']);
+        return $this->hasOne(Prodi::className(), ['prodi_id' => 'prodi_id']);
     }
 
     /**
@@ -103,4 +108,17 @@ class ProdiPeriode extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SaatpmbTest::className(), ['proper_id' => 'proper_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public static function getProdiPeriodeActive()
+    {
+        //return $this->hasOne(SaatpmbPeriode::className(), ['periode_id' => 'periode_id'])->andWhere(['active' => 1]);
+        return self::find()->joinWith(['periode'])
+            ->where(['saatpmb_periode.status' => 1])
+            ->joinWith(['prodi'])
+            ->select(['proper_id','prodi_name'])
+            ->all();
+    }    
 }
