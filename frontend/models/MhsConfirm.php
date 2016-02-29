@@ -113,4 +113,9 @@ class MhsConfirm extends \yii\db\ActiveRecord
         return $this->hasOne(SaatpmbProdiperiode::className(), ['proper_id' => 'proper_id']);
     }
 
+    public function getProdi()
+    {
+        return $this->hasOne(Prodi::className(), ['prodi_id' => 'prodi_id'])
+            ->viaTable('saatpmb_prodiperiode', ['proper_id' => 'proper_id']);
+    }
 }

@@ -4,16 +4,18 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\MhsConfirm */
+/* @var $model frontend\models\User */
 
-$this->title = 'Data Mahasiswa';
+$this->title = 'Create User';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="mhs-confirm-create">
+<div class="user-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

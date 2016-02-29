@@ -45,9 +45,15 @@ class MahasiswaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            return $this->render('input-data', [
-                'model' => $model,
-            ]);
+            if (Yii::$app->user->identity->user_noreg) {
+                return $this->render('view', [
+                    'model' => $model->find()->where(['mhs_noreg' => Yii::$app->user->identity->user_noreg])->one(),
+                ]);
+            } else {
+                return $this->render('input-data', [
+                    'model' => $model,
+                ]);
+            }
         }
     }
 
@@ -65,7 +71,15 @@ class MahasiswaController extends Controller
 
         return $this->render('upload', ['model' => $model]);
     }
-    
+
+    public function actionView($id)
+    {
+        $this->layout = "mahasiswa-base";
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     /**
      * Finds the MhsConfirm model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

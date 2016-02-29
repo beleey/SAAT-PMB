@@ -18,8 +18,8 @@ use frontend\models\ProdiPeriode;
     <div class="row">
         <div class="col-md-6 col-offset-6 centered">
             <?= $form->field($model, 'mhs_noreg')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'mhs_nama')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->name, 'disabled' => 'true']) ?>
-            <?= $form->field($model, 'mhs_email')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->email, 'disabled' => 'true'] ) ?>
+            <?= $form->field($model, 'mhs_nama')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->name, 'readonly' => 'true']) ?>
+            <?= $form->field($model, 'mhs_email')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->email, 'readonly' => 'true'] ) ?>
                  
         </div>
         <div class="col-sm-4 form-group">
