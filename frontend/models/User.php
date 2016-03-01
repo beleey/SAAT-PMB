@@ -79,8 +79,4 @@ class User extends \yii\db\ActiveRecord
         return $this->hasMany(SaatpmbProdiperiode::className(), ['user_id' => 'id']);
     }
 
-    public static function findHash($id) {
-        return self::find()->where(['hash_confirm' => $id])
-            ->one();
-    } 
 }

@@ -54,4 +54,9 @@ class Periode extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SaatpmbProdiperiode::className(), ['periode_id' => 'periode_id']);
     }
+
+    public static function getPeriodeActive()
+    {
+        return $this->hasOne(self::className(), ['status' => 1]);
+    }
 }

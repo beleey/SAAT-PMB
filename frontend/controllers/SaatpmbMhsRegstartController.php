@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\SaatpmbMhsRegstart;
 use frontend\models\SaatpmbMhsRegstartSearch;
+use frontend\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Security;
 
 /**
  * SaatpmbMhsRegstartController implements the CRUD actions for SaatpmbMhsRegstart model.
@@ -114,6 +116,18 @@ class SaatpmbMhsRegstartController extends Controller
     }
 
     /**
+     * Displays a user registration confirmation.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionActivate($id)
+    {
+        return $this->render('activate', [
+            'model' => $this->findHashConfirm($id),
+        ]);
+    }
+
+    /**
      * Finds the SaatpmbMhsRegstart model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -129,8 +143,48 @@ class SaatpmbMhsRegstartController extends Controller
         }
     }
 
-    public function generateUserConfirmHash($id, $name, $date)
+    protected function findHashConfirm($id)
     {
+        if (($model = SaatpmbMhsRegstart::findHash($id)) !== null) {
+            try {
+                $this->addNewUserAfterActivate($model);
+            } catch (ErrorException $e) {
+                Yii::warning("Division by zero.");
+            } finally {
+                Yii::$app->user->logout();
+                return $model;
+            }
+        } else {
+            throw new NotFoundHttpException('Konfirmasi gagal.');
+        }
+    }
+
+    protected function addNewUserAfterActivate($model)
+    {
+        if (!User::find()->where(['email' => $model->email])->exists()) {
+            $user = new User();
+            $user->username = "test";
+            $user->name = $model->name;
+            $user->email = $model->email;
+            $user->user_noreg = "1";
+            $user->password = $model->password;
+            $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            $user->password_reset_token = "1";
+            $user->auth_key = "1";
+            $user->hash_confirm = "1";
+            $user->status = 10;
+            $user->active = 1;
+            $user->created_at = "1";
+            $user->updated_at = "1";
+            $user->save();
+        }
+    }
+
+    protected function generateNoreg($seq) 
+    {
+        $tahun = Periode::getPeriodeActive()->tahun;
+        $result = $tahun . str_pad($seq, 3, '0', STR_PAD_LEFT);
 
     }
+
 }

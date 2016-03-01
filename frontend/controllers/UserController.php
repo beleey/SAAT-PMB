@@ -132,12 +132,20 @@ class UserController extends Controller
         ]);
     }
 
-    protected function findHashConfirm($id)
+    protected function doConfirm() 
     {
-        if (($model = User::findHash($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('Konfirmasi gagal.');
-        }
+        
+    }
+
+    /**
+     * Generate.
+     * @param integer $tahun
+     * @param integer $gelombang
+     * @return string
+     */
+    protected function generateNoreg($tahun, $gelombang)
+    {
+        $result = $tahun . $gelombang;
+        return $result;
     }
 }

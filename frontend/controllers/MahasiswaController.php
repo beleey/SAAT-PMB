@@ -8,12 +8,27 @@ use frontend\models\MhsConfirmSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class MahasiswaController extends Controller 
 {
 	public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                    'allow' => false,
+                        'verbs' => ['POST']
+                    ],
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -45,10 +60,9 @@ class MahasiswaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            if (Yii::$app->user->identity->user_noreg) {
-                return $this->render('view', [
-                    'model' => $model->find()->where(['mhs_noreg' => Yii::$app->user->identity->user_noreg])->one(),
-                ]);
+            if ($model = $this->findModel(Yii::$app->user->identity->user_noreg) !== null) {
+                var_dump($model);
+                return $this->redirect(['view', 'id' => $model->mhs_noreg]);
             } else {
                 return $this->render('input-data', [
                     'model' => $model,
@@ -75,9 +89,14 @@ class MahasiswaController extends Controller
     public function actionView($id)
     {
         $this->layout = "mahasiswa-base";
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if ($model = $this->findModel($id) !== null) {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);    
+        } else {
+            $this->redirect(['input_data']);
+        }
+        
     }
 
     /**

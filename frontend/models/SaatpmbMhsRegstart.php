@@ -67,4 +67,11 @@ class SaatpmbMhsRegstart extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
+    public static function findHash($id) 
+    {
+        return self::find()->where(['hash_confirm' => $id])
+            ->one();
+    }
+
+
 }
