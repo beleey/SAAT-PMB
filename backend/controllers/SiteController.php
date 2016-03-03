@@ -60,19 +60,29 @@ class SiteController extends Controller
     }
 
     public function actionLogin()
-    {
+    {   
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirectUserLoggedIn();
         } else {
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * After successful login, or student who are still logged in, will be directly redirected to mahasiswa page
+     *
+     * @return mixed
+    */
+    public function redirectUserLoggedIn() 
+    {
+        $this->redirect(\Yii::$app->urlManager->createUrl("admin/index"));
     }
 
     public function actionLogout()

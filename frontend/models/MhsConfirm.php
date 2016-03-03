@@ -3,7 +3,8 @@
 namespace frontend\models;
 
 use Yii;
-use frontend\models\ProdiPeriode;
+use common\models\ProdiPeriode;
+use common\models\Prodi;
 /**
  * This is the model class for table "saatpmb_mhs_regconfirm".
  *

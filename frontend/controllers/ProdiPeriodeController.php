@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\ProdiPeriode;
-use frontend\models\ProdiPeriodeSearch;
+use common\models\ProdiPeriode;
+use common\models\ProdiPeriodeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

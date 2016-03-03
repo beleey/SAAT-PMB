@@ -6,6 +6,7 @@ use Yii;
 use frontend\models\SaatpmbMhsRegstart;
 use frontend\models\SaatpmbMhsRegstartSearch;
 use frontend\models\User;
+use common\models\Periode;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -166,7 +167,7 @@ class SaatpmbMhsRegstartController extends Controller
             $user->username = "test";
             $user->name = $model->name;
             $user->email = $model->email;
-            $user->user_noreg = "1";
+            $user->user_noreg = $this->generateNoreg($model->seq);
             $user->password = $model->password;
             $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->password);
             $user->password_reset_token = "1";
@@ -183,8 +184,7 @@ class SaatpmbMhsRegstartController extends Controller
     protected function generateNoreg($seq) 
     {
         $tahun = Periode::getPeriodeActive()->tahun;
-        $result = $tahun . str_pad($seq, 3, '0', STR_PAD_LEFT);
-
+        $result = $tahun . str_pad($seq, 4, '0', STR_PAD_LEFT);
+        return $result;
     }
-
 }

@@ -12,6 +12,8 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'language' => 'id',
+    'sourceLanguage' => 'id',
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',

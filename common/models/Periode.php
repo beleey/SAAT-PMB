@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 
@@ -57,6 +57,6 @@ class Periode extends \yii\db\ActiveRecord
 
     public static function getPeriodeActive()
     {
-        return $this->hasOne(self::className(), ['status' => 1]);
+        return Periode::find()->where(['status' => 1])->one();
     }
 }

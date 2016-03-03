@@ -1,10 +1,9 @@
 <?php
-
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
-use frontend\models\Prodi;
-use frontend\models\ProdiSearch;
+use common\models\Prodi;
+use common\models\ProdiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +24,13 @@ class ProdiController extends Controller
             ],
         ];
     }
+
+    public function beforeAction($action) 
+    {
+        $this->layout = 'admin-base';
+        return parent::beforeAction($action);
+    }
+
 
     /**
      * Lists all Prodi models.

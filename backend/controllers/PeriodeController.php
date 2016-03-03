@@ -1,10 +1,10 @@
 <?php
-
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
-use frontend\models\Periode;
-use frontend\models\PeriodeSearch;
+use common\models\Periode;
+use common\models\PeriodeSearch;
+use common\models\ProdiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +24,12 @@ class PeriodeController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action) 
+    {
+        $this->layout = 'admin-base';
+        return parent::beforeAction($action);
     }
 
     /**
@@ -65,8 +71,12 @@ class PeriodeController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->periode_id]);
         } else {
+            $searchModel = new ProdiSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             return $this->render('create', [
                 'model' => $model,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
             ]);
         }
     }

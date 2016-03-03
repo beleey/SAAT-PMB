@@ -19,7 +19,7 @@ class MahasiswaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                    'allow' => false,
+                    'allow' => true,
                         'verbs' => ['POST']
                     ],
                     // allow authenticated users
@@ -60,13 +60,13 @@ class MahasiswaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            if ($model = $this->findModel(Yii::$app->user->identity->user_noreg) !== null) {
-                var_dump($model);
-                return $this->redirect(['view', 'id' => $model->mhs_noreg]);
-            } else {
+            if (!$model = $this->findModel(Yii::$app->user->identity->user_noreg)) {
+                $model = new MhsConfirm();
                 return $this->render('input-data', [
                     'model' => $model,
                 ]);
+            } else {
+                return $this->redirect(['view', 'id' => $model->mhs_noreg]);
             }
         }
     }
@@ -111,7 +111,8 @@ class MahasiswaController extends Controller
         if (($model = MhsConfirm::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            //throw new NotFoundHttpException('The requested page does not exist.');
+            return null;
         }
     }
 }

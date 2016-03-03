@@ -5,7 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
 use kartik\widgets\DepDrop;
-use frontend\models\ProdiPeriode;
+use common\models\ProdiPeriode;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\MhsConfirm */
@@ -17,7 +17,7 @@ use frontend\models\ProdiPeriode;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-md-6 col-offset-6 centered">
-            <?= $form->field($model, 'mhs_noreg')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'mhs_noreg')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->user_noreg, 'readonly' => 'true']) ?>
             <?= $form->field($model, 'mhs_nama')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->name, 'readonly' => 'true']) ?>
             <?= $form->field($model, 'mhs_email')->textInput(['maxlength' => true, 'value' => Yii::$app->user->identity->email, 'readonly' => 'true'] ) ?>
                  

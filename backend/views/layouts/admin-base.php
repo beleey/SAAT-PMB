@@ -8,11 +8,11 @@ use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use frontend\assets\MhsAsset;
+use backend\assets\AdminAsset;
 use common\widgets\Alert;
 use kartik\widgets\SideNav;
 
-MhsAsset::register($this);
+AdminAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -64,39 +64,44 @@ MhsAsset::register($this);
                     </ul>
                 </li>
             </ul>
-           
+            
             <div class="collapse navbar-collapse navbar-ex1-collapse" >
                 <div class="nav navbar-nav side-nav" style="background-color: #fff;">
             <?= 
                 SideNav::widget([
                     'type' => SideNav::TYPE_WARNING,
-                    'heading' => 'Menu Mahasiswa',
+                    'heading' => 'Menu ADMIN',
                     'items' => [
                         [
-                            'url' => ['mahasiswa/index'],
-                            'label' => 'Home',
+                            'url' => ['admin/index'],
+                            'label' => Yii::t('app','home'),
                             'icon' => 'home'
                         ],
                         [
-                            'url' => ['mahasiswa/input_data'],
-                            'label' => 'Data Diri',
+                            'url' => ['prodi/index'],
+                            'label' => 'Prodi',
                             'icon' => 'edit'
                         ],
                         [
-                            'url' => ['mahasiswa/hasil_test'],
-                            'label' => 'Hasil Test',
+                            'url' => ['periode/index'],
+                            'label' => 'Periode TA',
                             'icon' => 'file'
                         ]
                     ],
                 ]);
+           
             ?>
-            </div>
-            </div>
+                </div>
+                </div>
             <!-- /.navbar-collapse -->
         </nav>
+            
       
         <div id="page-wrapper">
             <div class="container-fluid">
+                <?= Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
                 <?= $content ?>
             </div>
         </div>

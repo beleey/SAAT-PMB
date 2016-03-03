@@ -1,16 +1,16 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\ProdiPeriode;
+use common\models\Prodi;
 
 /**
- * ProdiPeriodeSearch represents the model behind the search form about `frontend\models\ProdiPeriode`.
+ * ProdiSearch represents the model behind the search form about `frontend\models\Prodi`.
  */
-class ProdiPeriodeSearch extends ProdiPeriode
+class ProdiSearch extends Prodi
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ProdiPeriodeSearch extends ProdiPeriode
     public function rules()
     {
         return [
-            [['proper_id', 'periode_id', 'prodi_id', 'user_id'], 'integer'],
-            [['create_date'], 'safe'],
+            [['prodi_id'], 'integer'],
+            [['prodi_name', 'prodi_desc'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProdiPeriodeSearch extends ProdiPeriode
      */
     public function search($params)
     {
-        $query = ProdiPeriode::find();
+        $query = Prodi::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,12 +56,11 @@ class ProdiPeriodeSearch extends ProdiPeriode
         }
 
         $query->andFilterWhere([
-            'proper_id' => $this->proper_id,
-            'periode_id' => $this->periode_id,
             'prodi_id' => $this->prodi_id,
-            'create_date' => $this->create_date,
-            'user_id' => $this->user_id,
         ]);
+
+        $query->andFilterWhere(['like', 'prodi_name', $this->prodi_name])
+            ->andFilterWhere(['like', 'prodi_desc', $this->prodi_desc]);
 
         return $dataProvider;
     }

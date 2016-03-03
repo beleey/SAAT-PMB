@@ -23,14 +23,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
-            'periode_id',
+            //'periode_id',
             'periode_name',
             'tahun',
-
+           [
+                'attribute' => 'status',
+                'value' => function ($data){
+                 return $data->status==1 ? "Active": ($data->status==0 ? "-": "-");
+                }
+            ],
+           
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'rowOptions' => function ($model, $index, $widget, $grid){
+            if($model->status == 1){
+                return ['style' => 'background-color:#CDEB8B;'];
+            } else {
+                return ['style' => 'background-color:#fff;'];
+            }
+        },
     ]); ?>
 
 </div>
